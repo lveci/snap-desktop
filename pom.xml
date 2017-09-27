@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.esa.snap</groupId>
         <artifactId>snap-engine</artifactId>
-        <version>6.0.0-SNAPSHOT</version>
+        <version>6.0.0-Skywatch-SNAPSHOT</version>
     </parent>
 
     <artifactId>snap-desktop</artifactId>
@@ -229,7 +229,30 @@
         </dependencies>
     </dependencyManagement>
 
+    <distributionManagement>
+        <snapshotRepository>
+          <id>skywatch-dev</id>
+          <url>s3://skywatch-dev/mavenrepo/snapshot</url>
+        </snapshotRepository>
+        <repository>
+          <id>skywatch-dev</id>
+          <url>s3://skywatch-dev/mavenrepo/release</url>
+        </repository>
+    </distributionManagement>
+    
     <repositories>
+        <repository>
+          <id>skywatch-dev</id>
+          <url>s3://skywatch-dev/mavenrepo/release</url>
+          <releases>
+                <enabled>true</enabled>
+                <checksumPolicy>warn</checksumPolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <checksumPolicy>warn</checksumPolicy>
+            </snapshots>
+        </repository>
         <repository>
             <id>snap-repo-public</id>
             <name>Public Maven Repository for SNAP</name>
@@ -302,5 +325,13 @@
             </plugin>
 
         </plugins>
+        
+        <extensions>
+          <extension>
+            <groupId>org.kuali.maven.wagons</groupId>
+            <artifactId>maven-s3-wagon</artifactId>
+            <version>1.2.1</version>
+          </extension>
+        </extensions>
     </build>
 </project>
